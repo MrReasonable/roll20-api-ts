@@ -1,23 +1,32 @@
 {
-  "name": "@types/roll20-api-ts-types",
-  "version": "1.0.0",
+  "name": "roll20-api-ts",
+  "version": "0.0.1",
   "description": "TypeScript Types for the Roll20 API.",
   "keywords": [
     "Typescript",
     "Roll20",
     "API"
   ],
-  "homepage": "https://github.com/MrReasonable/roll20-api-ts-types#readme",
+  "homepage": "https://github.com/MrReasonable/roll20-api-ts#readme",
   "bugs": {
-    "url": "https://github.com/MrReasonable/roll20-api-ts-types/issues"
+    "url": "https://github.com/MrReasonable/roll20-api-ts/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MrReasonable/roll20-api-ts-types.git"
+    "url": "git+https://github.com/MrReasonable/roll20-api-ts.git"
   },
   "license": "MIT",
   "author": "MrReasonable",
   "type": "commonjs",
   "main": "",
-  "types": "index.d.ts"
+  "types": "index.d.ts",
+  "scripts": {
+    "lint": "eslint . --ext .ts,.d.ts"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.25.0",
+    "eslint": "^9.25.0",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.30.1"
+  }
 }
