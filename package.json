@@ -1,0 +1,23 @@
+{
+  "name": "@types/roll20-api-ts-types",
+  "version": "1.0.0",
+  "description": "TypeScript Types for the Roll20 API.",
+  "keywords": [
+    "Typescript",
+    "Roll20",
+    "API"
+  ],
+  "homepage": "https://github.com/MrReasonable/roll20-api-ts-types#readme",
+  "bugs": {
+    "url": "https://github.com/MrReasonable/roll20-api-ts-types/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MrReasonable/roll20-api-ts-types.git"
+  },
+  "license": "MIT",
+  "author": "MrReasonable",
+  "type": "commonjs",
+  "main": "",
+  "types": "index.d.ts"
+}
