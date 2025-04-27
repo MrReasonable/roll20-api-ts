@@ -383,37 +383,37 @@ export interface Roll20ObjectMap {
 // Global Functions //
 //////////////////////
 
-declare function Campaign(): Roll20Object<Campaign>;
-declare function createObj<K extends keyof Roll20ObjectMap>(
+export declare function Campaign(): Roll20Object<Campaign>;
+export declare function createObj<K extends keyof Roll20ObjectMap>(
   type: K,
   attributes: Partial<Omit<Roll20ObjectMap[K], '_type' | '_id'>>
 ): Roll20Object<Roll20ObjectMap[K]>;
-declare function getObj<K extends keyof Roll20ObjectMap>(
+export declare function getObj<K extends keyof Roll20ObjectMap>(
   type: K,
   id: string
 ): Roll20Object<Roll20ObjectMap[K]> | undefined;
-declare function findObjs(
+export declare function findObjs(
   attrs: Partial<Record<string, unknown>>,
   options?: { caseInsensitive?: boolean }
 ): Roll20Object<Roll20ObjectMap[keyof Roll20ObjectMap]>[];
-declare function filterObjs(
+export declare function filterObjs(
   callback: (obj: Roll20Object<Roll20ObjectMap[keyof Roll20ObjectMap]>) => boolean
 ): Roll20Object<Roll20ObjectMap[keyof Roll20ObjectMap]>[];
-declare function getAllObjs(): Roll20Object<Roll20ObjectMap[keyof Roll20ObjectMap]>[];
-declare function getAttrByName(
+export declare function getAllObjs(): Roll20Object<Roll20ObjectMap[keyof Roll20ObjectMap]>[];
+export declare function getAttrByName(
   characterID: string,
   attributeName: string,
   valueType?: 'current' | 'max'
 ): string | number;
-declare function log(message: unknown): void;
-declare function randomInteger(max: number): number;
-declare function sendChat(
+export declare function log(message: unknown): void;
+export declare function randomInteger(max: number): number;
+export declare function sendChat(
   speakingAs: string,
   message: string,
   callback?: (results: unknown[]) => void,
   options?: { noarchive?: boolean; use3d?: boolean }
 ): void;
-declare function sendPing(
+export declare function sendPing(
   left: number,
   top: number,
   pageid: string,
@@ -421,54 +421,54 @@ declare function sendPing(
   moveAll?: boolean,
   visibleTo?: string | string[]
 ): void;
-declare function playJukeboxPlaylist(playlistID: string): void;
-declare function stopJukeboxPlaylist(): void;
-declare function spawnFx(
+export declare function playJukeboxPlaylist(playlistID: string): void;
+export declare function stopJukeboxPlaylist(): void;
+export declare function spawnFx(
   left: number,
   top: number,
   type: string,
   pageid?: string
 ): void;
-declare function spawnFxBetweenPoints(
+export declare function spawnFxBetweenPoints(
   start: { x: number; y: number },
   end: { x: number; y: number },
   type: string,
   pageid?: string
 ): void;
-declare function spawnFxWithDefinition(
+export declare function spawnFxWithDefinition(
   left: number,
   top: number,
   definition: Record<string, unknown>,
   pageid?: string
 ): void;
-declare function on(event: 'ready', callback: () => void): void;
-declare function on<K extends keyof Roll20ObjectMap>(
+export declare function on(event: 'ready', callback: () => void): void;
+export declare function on<K extends keyof Roll20ObjectMap>(
   event: `add:${K}`,
   callback: (obj: Roll20Object<Roll20ObjectMap[K]>) => void
 ): void;
-declare function on<K extends keyof Roll20ObjectMap>(
+export declare function on<K extends keyof Roll20ObjectMap>(
   event: `destroy:${K}`,
   callback: (obj: Roll20Object<Roll20ObjectMap[K]>) => void
 ): void;
-declare function on<K extends keyof Roll20ObjectMap>(
+export declare function on<K extends keyof Roll20ObjectMap>(
   event: `change:${K}`,
   callback: (obj: Roll20Object<Roll20ObjectMap[K]>, prev: Partial<Record<keyof Roll20ObjectMap[K], unknown>>) => void
 ): void;
-declare function on<K extends keyof Roll20ObjectMap, P extends keyof Roll20ObjectMap[K]>(
+export declare function on<K extends keyof Roll20ObjectMap, P extends keyof Roll20ObjectMap[K]>(
   event: `change:${K}:${Extract<P, string>}`,
   callback: (obj: Roll20Object<Roll20ObjectMap[K]>, prev: unknown) => void
 ): void;
-declare function on(
+export declare function on(
   event: 'chat:message',
   callback: (msg: unknown) => void
 ): void;
-declare function onSheetWorkerCompleted(callback: () => void): void;
-declare function playerIsGM(playerID: string): boolean;
+export declare function onSheetWorkerCompleted(callback: () => void): void;
+export declare function playerIsGM(playerID: string): boolean;
 
 /////////////////////////
 // Utility & Globals   //
 /////////////////////////
-interface State {
+export interface State {
     [key: string]: unknown;
 }
 declare let state: State;
