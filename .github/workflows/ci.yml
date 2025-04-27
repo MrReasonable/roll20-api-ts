@@ -43,6 +43,9 @@ jobs:
       
       - name: Run linting
         run: pnpm lint
+        
+      - name: Build TypeScript
+        run: pnpm build
 
   publish:
     needs: lint
@@ -79,6 +82,9 @@ jobs:
       
       - name: Install dependencies
         run: pnpm install
+      
+      - name: Build TypeScript
+        run: pnpm build
       
       - name: Version and publish for tags
         if: startsWith(github.ref, 'refs/tags/v')
