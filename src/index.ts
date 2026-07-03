@@ -5,6 +5,8 @@
  *   - API Function Documentation: https://help.roll20.net/hc/en-us/articles/360037772833-API-Function-Documentation
  *   - API Events: https://help.roll20.net/hc/en-us/articles/360037772813-API-Events
  *   - API Utility Functions: https://help.roll20.net/hc/en-us/articles/360037256774-API-Utility-Functions
+ *
+ * Verified against the current (live) versions of the above on 2026-07-03.
  */
 
 ///////////////////////
@@ -25,6 +27,8 @@ export interface Campaign {
   _journalfolder: string;
   _jukeboxfolder: string;
   foregroundLayerVisible: boolean;
+  /** Stringified JSON array of the game's token markers; parse into `TokenMarker[]`. */
+  token_markers: string;
 }
 
 export interface Page {
@@ -110,6 +114,8 @@ export interface Graphic {
   baseOpacity: number;
   fadeOnOverlap: boolean;
   fadeOpacity: number;
+  interactionManualReset: boolean;
+  interactionTriggered: boolean;
   renderAsScenery: boolean;
 }
 
@@ -341,6 +347,21 @@ export interface CustomFX {
   definition: Record<string, unknown>;
 }
 
+/**
+ * A single token marker, as found in the JSON array returned by
+ * `Campaign().get("token_markers")`.
+ */
+export interface TokenMarker {
+  /** Database id for the marker. */
+  id: number;
+  /** Non-unique display name of the marker. */
+  name: string;
+  /** How the marker is referenced (e.g. "Bane::59"); includes the id for custom markers. */
+  tag: string;
+  /** URL for the marker's image. */
+  url: string;
+}
+
 /////////////////////
 // Object Wrappers //
 /////////////////////
@@ -348,7 +369,13 @@ export interface CustomFX {
 /** Wrapper type for Roll20 objects */
 export type Roll20Object<T> = {
   id: string;
-  get<K extends keyof T>(property: K, callback?: (value: T[K]) => void): void;
+  /** Synchronously returns the current value of a property. */
+  get<K extends keyof T>(property: K): T[K];
+  /**
+   * Callback form, required for the handful of properties that are fetched
+   * asynchronously (e.g. `bio`, `gmnotes`, `notes`, `_defaulttoken`).
+   */
+  get<K extends keyof T>(property: K, callback: (value: T[K]) => void): void;
   set<K extends keyof T>(property: K, value: T[K], callback?: () => void): void;
   set(properties: Partial<T>, callback?: () => void): void;
   remove(): void;
@@ -392,6 +419,10 @@ export declare function getObj<K extends keyof Roll20ObjectMap>(
   type: K,
   id: string
 ): Roll20Object<Roll20ObjectMap[K]> | undefined;
+export declare function findObjs<K extends keyof Roll20ObjectMap>(
+  attrs: { _type: K } & Record<string, unknown>,
+  options?: { caseInsensitive?: boolean }
+): Roll20Object<Roll20ObjectMap[K]>[];
 export declare function findObjs(
   attrs: Partial<Record<string, unknown>>,
   options?: { caseInsensitive?: boolean }
@@ -464,6 +495,15 @@ export declare function on(
 ): void;
 export declare function onSheetWorkerCompleted(callback: () => void): void;
 export declare function playerIsGM(playerID: string): boolean;
+/** Moves a graphic object above all other graphics on the same tabletop layer. */
+export declare function toFront(obj: Roll20Object<Graphic>): void;
+/** Moves a graphic object below all other graphics on the same tabletop layer. */
+export declare function toBack(obj: Roll20Object<Graphic>): void;
+/** Sets the default token for a character to the supplied token (graphic) object. */
+export declare function setDefaultTokenForCharacter(
+  character: Roll20Object<Character>,
+  token: Roll20Object<Graphic>
+): void;
 
 /////////////////////////
 // Utility & Globals   //
@@ -471,4 +511,4 @@ export declare function playerIsGM(playerID: string): boolean;
 export interface State {
     [key: string]: unknown;
 }
-declare let state: State;
+export declare const state: State;
