@@ -2,7 +2,8 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "noEmit": true,
-    "outDir": null
+    "outDir": null,
+    "rootDir": null
   },
   "include": ["**/*.ts", "../src/global.ts"]
 }
